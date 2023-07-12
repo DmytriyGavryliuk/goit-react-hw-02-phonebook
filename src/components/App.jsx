@@ -17,16 +17,15 @@ class App extends Component {
     filter: '',
   };
 
-  checkContact = (arr, newName) => {
-    return arr.some(({ name }) => {
-      // console.log(name);
+
+  handleAddContact = ({ name, number }) => {
+    const checkContact = (arr, newName) => {
+    return arr.find(({ name }) => {
+    
       return newName.toLowerCase() === name.toLowerCase();
     });
   };
-
-  handleAddContact = ({ name, number }) => {
-    const check = this.checkContact(this.state.contacts, name);
-    // console.log(check);
+    const check = checkContact(this.state.contacts, name);
     if (check) {
       alert(`${name} is already in contacts.`);
       return;
@@ -35,7 +34,7 @@ class App extends Component {
       prevState => ({
         contacts: [
           ...prevState.contacts,
-          { id: nanoid(), name: name, number: number },
+          { id: nanoid(), name, number: number },
         ],
       })
       // () => console.log(this.state.contacts)
